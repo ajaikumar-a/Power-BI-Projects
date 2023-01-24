@@ -1,1 +1,10 @@
+# Measures created for the analysis
 
+```dax
+Total orders = CALCULATE(
+    DISTINCTCOUNT(
+        orders[InvoiceNo]
+    ),
+    orders[Status] = "Ordered"
+)
+```
