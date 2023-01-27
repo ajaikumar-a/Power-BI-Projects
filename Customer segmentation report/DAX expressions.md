@@ -1,4 +1,4 @@
-## DAX expression used for creating a calender table
+## Creating a calender table
 
 ```
 calender = 
@@ -23,7 +23,7 @@ GENERATE(
 ```
 
 
-## DAX expressions used for creating measures
+## Creating the measures
 
 ```DAX
 Total orders = CALCULATE(
@@ -232,7 +232,7 @@ Cancelled R value = DATEDIFF(
 )
 ```
 
-## DAX expression used for creating the RFM table
+## Creating the RFM table
 
 ```
 RFM table = SUMMARIZE(
@@ -247,7 +247,7 @@ RFM table = SUMMARIZE(
 )
 ```
 
-## DAX expressions used for creating calculated columns
+## Creating calculated columns
 
 ```
 Order R score = SWITCH(
