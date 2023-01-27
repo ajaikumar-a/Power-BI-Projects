@@ -9,7 +9,7 @@ To identify the wholesalers whom the company needs to focus on and potential who
 
 ## Steps taken:
 - Data loading, cleaning, and transformation are done using Power Query.
-- Created a calendar table, a lookup table containing all the customer ids.
+- Created a calendar table and a lookup table containing all the customer ids.
 - Created a data model by establishing relationships between these tables.
 - Created DAX measures and calculated columns necessary for the analysis.
 - Created visualizations for further analysis.
