@@ -1,4 +1,29 @@
-## DAX Measures created for the analysis
+## DAX expression used for creating a calender table
+
+```
+calender = 
+GENERATE(
+    CALENDAR(
+        DATE(2010, 1, 1), DATE(2011, 12, 31)
+    ),
+
+    VAR CurrentDate = [Date]
+    VAR Day = DAY(CurrentDate)
+    VAR Month = MONTH(CurrentDate)
+    VAR Quarter = QUARTER(CurrentDate)
+    VAR Year = YEAR(CurrentDate)
+
+    RETURN ROW(
+        "Year", Year,
+        "Quarter", Quarter,
+        "Month", Month,
+        "Day", Day
+    )
+)
+```
+
+
+## DAX expressions used for creating measures
 
 ```DAX
 Total orders = CALCULATE(
@@ -207,3 +232,56 @@ Cancelled R value = DATEDIFF(
 )
 ```
 
+## DAX expression used for creating the RFM table
+
+```
+RFM table = SUMMARIZE(
+    orders, 
+    customers[CustomerID],
+    "Order R value", [Order R value],
+    "Order F value", [Order F value],
+    "Order M value", [Order M value],
+    "Cancelled R value", [Cancelled R value],
+    "Cancelled F value", [Cancelled F value],
+    "Cancelled M value", [Cancelled M value]
+)
+```
+
+## DAX expressions used for creating calculated columns
+
+```
+Order R score = SWITCH(
+    TRUE(),
+    'RFM table'[Order R value] <= PERCENTILE.INC('RFM table'[Order R value], 0.20), 5,
+    'RFM table'[Order R value] <= PERCENTILE.INC('RFM table'[Order R value], 0.40), 4,
+    'RFM table'[Order R value] <= PERCENTILE.INC('RFM table'[Order R value], 0.60), 3,
+    'RFM table'[Order R value] <= PERCENTILE.INC('RFM table'[Order R value], 0.80), 2,
+    1
+)
+```
+
+```
+Order M score = SWITCH(
+    TRUE(),
+    'RFM table'[Order M value] <= PERCENTILE.INC('RFM table'[Order M value], 0.20), 1,
+    'RFM table'[Order M value] <= PERCENTILE.INC('RFM table'[Order M value], 0.40), 2,
+    'RFM table'[Order M value] <= PERCENTILE.INC('RFM table'[Order M value], 0.60), 3,
+    'RFM table'[Order M value] <= PERCENTILE.INC('RFM table'[Order M value], 0.80), 4,
+    5
+)
+```
+
+```
+Order F score = SWITCH(
+    TRUE(),
+    'RFM table'[Order F value] <= PERCENTILE.INC('RFM table'[Order F value], 0.20), 1,
+    'RFM table'[Order F value] <= PERCENTILE.INC('RFM table'[Order F value], 0.40), 2,
+    'RFM table'[Order F value] <= PERCENTILE.INC('RFM table'[Order F value], 0.60), 3,
+    'RFM table'[Order F value] <= PERCENTILE.INC('RFM table'[Order F value], 0.80), 4,
+    5
+)
+```
+
+```
+Order RFM score = 'RFM table'[Order R score] & 'RFM table'[Order F score] & 'RFM table'[Order M score]
+```
