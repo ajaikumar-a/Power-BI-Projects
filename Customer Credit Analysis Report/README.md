@@ -6,17 +6,17 @@ Data source link 👉 https://bit.ly/3P0713W
 
 Power BI report link 👉 https://bit.ly/3Cj6C5i
 
-### Visualizations used:
+#### Visualizations used:
 - Bar chart
 - Column chart
 - Donut chart
 - Cards
 
-### DAX functions used:
+#### DAX functions used:
 - SUM
 - AVERAGE
 - COUNT
 - COUNTROWS
 
-### Other tools used:
+#### Other tools used:
 - Page navigation
